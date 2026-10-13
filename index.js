@@ -212,3 +212,95 @@ function bigShoeRebounds() {
 
     return rebounds;
 }
+
+function mostPointsScored() {
+    const game = gameObject();
+    const allPlayers = {
+        ...game.home.players,
+        ...game.away.players
+    };
+
+    let highestScore = -1;
+    let topPlayer = "";
+
+    for (const playerName in allPlayers) {
+        if (allPlayers[playerName].points > highestScore) {
+            highestScore = allPlayers[playerName].points;
+            topPlayer = playerName;
+        }
+    }
+
+    return topPlayer;
+}
+
+function winningTeam() {
+    const game = gameObject();
+
+    let homePoints = 0;
+    let awayPoints = 0;
+
+    for (const playerName in game.home.players) {
+        homePoints += game.home.players[playerName].points;
+    }
+
+    for (const playerName in game.away.players) {
+        awayPoints += game.away.players[playerName].points;
+    }
+
+    if (homePoints > awayPoints) {
+        return game.home.teamName;
+    } else if (awayPoints > homePoints) {
+        return game.away.teamName;
+    } else {
+        return "Tie";
+    }
+}
+
+function playerWithLongestName() {
+    const game = gameObject();
+
+    const allPlayers = {
+        ...game.home.players,
+        ...game.away.players
+    };
+
+    let longestName = "";
+
+    for (const playerName in allPlayers) {
+        if (playerName.length > longestName.length) {
+            longestName = playerName;
+        }
+    }
+
+    return longestName;
+}
+
+function doesLongNameStealATon() {
+    const game = gameObject();
+
+    const allPlayers = {
+        ...game.home.players,
+        ...game.away.players
+    };
+
+    let longestName = "";
+    let mostSteals = -1;
+    let playerWithMostSteals = "";
+
+    for (const playerName in allPlayers) {
+        const player = allPlayers[playerName];
+
+        // Find the player with the longest name
+        if (playerName.length > longestName.length) {
+            longestName = playerName;
+        }
+
+        // Find the player with the most steals
+        if (player.steals > mostSteals) {
+            mostSteals = player.steals;
+            playerWithMostSteals = playerName;
+        }
+    }
+
+    return longestName === playerWithMostSteals;
+}
