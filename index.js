@@ -114,3 +114,101 @@ function gameObject() {
         },
     };
 }
+
+
+function numPointsScored(playerName) {
+    const game = gameObject();
+
+    const homePlayers = game.home.players;
+    const awayPlayers = game.away.players;
+
+    if (homePlayers[playerName]) {
+        return homePlayers[playerName].points;
+    }
+
+    if (awayPlayers[playerName]) {
+        return awayPlayers[playerName].points;
+    }
+
+    return undefined;
+}
+
+function shoeSize(playerName) {
+    const game = gameObject();
+
+    const homePlayers = game.home.players;
+    const awayPlayers = game.away.players;
+
+    if (homePlayers[playerName]) {
+        return homePlayers[playerName].shoe;
+    }
+
+    if (awayPlayers[playerName]) {
+        return awayPlayers[playerName].shoe;
+    }
+
+    return undefined;
+}
+
+
+function teamColors(teamName){
+   const game = gameObject();
+
+    if (game.home.teamName === teamName) {
+        return game.home.colors;
+    }
+
+    if (game.away.teamName === teamName) {
+        return game.away.colors;
+    }
+}
+
+function playerNumbers(teamName) {
+    const game = gameObject();
+
+    if (game.home.teamName === teamName) {
+        return Object.values(game.home.players).map(player => player.number);
+    }
+
+    if (game.away.teamName === teamName) {
+        return Object.values(game.away.players).map(player => player.number);
+    }
+}
+
+function playerStats(playerName) {
+    const game = gameObject();
+
+    const homePlayers = game.home.players;
+    const awayPlayers = game.away.players;
+
+    if (homePlayers[playerName]) {
+        return homePlayers[playerName];
+    }
+
+    if (awayPlayers[playerName]) {
+        return awayPlayers[playerName];
+    }
+}
+
+function bigShoeRebounds() {
+    const game = gameObject();
+
+    const allPlayers = {
+        ...game.home.players,
+        ...game.away.players
+    };
+
+    let largestShoe = 0;
+    let rebounds = 0;
+
+    for (const playerName in allPlayers) {
+        const player = allPlayers[playerName];
+
+        if (player.shoe > largestShoe) {
+            largestShoe = player.shoe;
+            rebounds = player.rebounds;
+        }
+    }
+
+    return rebounds;
+}
